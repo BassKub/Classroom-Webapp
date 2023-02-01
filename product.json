@@ -1,0 +1,36 @@
+[{
+  "_id": {
+    "$oid": "63a27ec13be41dfde4feab6b"
+  },
+  "ProductID": "1001",
+  "ProductName": "Latte",
+  "ProductPrice": 35
+},{
+  "_id": {
+    "$oid": "63a2801b3be41dfde4feab6e"
+  },
+  "ProductID": "1002",
+  "ProductName": "Matcha",
+  "ProductPrice": 35
+},{
+  "_id": {
+    "$oid": "63a280333be41dfde4feab6f"
+  },
+  "ProductID": "1003",
+  "ProductName": "Greentea",
+  "ProductPrice": 30
+},{
+  "_id": {
+    "$oid": "63a280353be41dfde4feab70"
+  },
+  "ProductID": "1004",
+  "ProductName": "Lemonnade",
+  "ProductPrice": 25
+},{
+  "_id": {
+    "$oid": "63a2808c3be41dfde4feab71"
+  },
+  "ProductID": "1005",
+  "ProductName": "Pepsi",
+  "ProductPrice": 20
+}]

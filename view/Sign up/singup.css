@@ -1,0 +1,78 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    background-image: url('a1.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    
+}
+form{
+    display: flex;
+    justify-content: center;
+    margin-top: 270px;
+}
+
+h5{
+    font-family: 'Marmelad';
+    font-style: normal;
+    font-size: 18px;
+    display: flex;
+    justify-content: center;
+}
+
+.box {
+    
+    width: 450px;
+    height: 400px;
+    background: rgba(231, 230, 230, 0.7);
+    border-radius: 43px;
+    padding: 40px 30px 50px 30px;
+    box-shadow: 0 0 10px #000;
+
+}
+
+.ca{
+    font-family: 'Marmelad';
+    font-style: normal;
+    width: 99px;
+    height: 47px;
+    font-size: 22px;
+    background: #FD4556;
+    border-radius: 10px;
+    color: #ffffff;
+    outline: none;
+    cursor: pointer;
+    transition: 1s;
+}
+
+.fornt{
+    font-family: 'Marmelad';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 40px;
+    line-height: 38px;
+    color: #000000;
+
+}
+
+input[type="submit"]:hover{
+    background-color: #fc1919;
+    transition: 1s;
+}
+
+input[type="email"],input[type="password"]{
+    
+    display:block;
+    margin-bottom: 20px;
+    width: 100%;
+    border-radius: 10px;
+    border: none;
+}
+input[type="submit"]{
+    margin-top: 20px;
+    margin-bottom: 10px;
+    width: 100%;
+}

@@ -1,0 +1,19 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.box{
+    height: 350px;
+    width: 350px;
+    position: relative;
+    padding: 20px 20px 20px 20px;
+    background: rgba(231, 230, 230, 0.7);
+    border-radius: 43px;
+    font-family: 'Marmelad';
+    font-style: normal;
+    font-size: 18px;
+    text-decoration: none;
+    color: #000;
+}

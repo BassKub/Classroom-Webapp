@@ -1,0 +1,70 @@
+body {
+    background-image: url("A1.jpg");
+    color: white;
+    font-family: 'Marmelad';
+  }
+  
+  h1 {
+    text-align: center;
+    margin-top: 250px;
+    font-size: 36px;
+    font-weight: bold;
+    
+  }
+  
+  a{
+    text-decoration: none;
+    color: white;
+  }
+  h5{
+    font-family: 'Marmelad';
+    font-weight: lighter;
+    font-size: 16px;
+    display: flex;
+    justify-content: center;
+    text-decoration: none;
+    margin-bottom: 0px;
+    margin-top: 10px;
+  
+}
+  form {
+    margin: auto;
+    width: 450px;
+    background-color: #343d46;
+    padding: 40px 30px 20px 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px #000;
+    
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 18px;
+  }
+  
+  input[type="text"], textarea {
+    width: 100%;
+    padding: 10px 0px 10px 0px;
+    font-size: 18px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: none;
+    box-shadow: 0 0 5px #000;
+    background-color: #3f444f;
+    color: white;
+  }
+  
+  button[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    background-color: #FD4556;
+    border: none;
+    border-radius: 5px;
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
+    font-family: 'Marmelad';
+    font-weight: lighter;
+  }
