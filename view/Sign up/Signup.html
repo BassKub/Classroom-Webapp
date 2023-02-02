@@ -11,16 +11,20 @@
     
 </head>
 <body >
-    <form action="">
+    <form action="/signupuser" method="post">
         <div class="box">
             <h1 class="fornt" style="margin-bottom: 30px ; font-size: 48px;">CreateAccount</h1>
             <div class="form-floating">
-                <input type="email" name="email" class="form-control" id="floatinguser" placeholder="Username">
+                <input type="email" name="username" id="email" class="form-control" id="floatinguser" placeholder="Username">
                 <label for="floatinguser">Username</label>
             </div>
             <div class="form-floating">
                 <input type="password" name="password" class="form-control" id="floatingPassword" placeholder="Password">
                 <label for="floatingPassword">Password</label>
+            </div>
+            <div class="form-floating">
+                <input type="text" name="fullname" class="form-control" id="floatingfullname" placeholder="Fullname">
+                <label for="floatingPassword">Fullname</label>
             </div>
             <input class="ca" type="submit" value="CreateAccount" style="border: none;">
             <h5>Already have account!!<a href="/view/Login/Login.html">Sign in?</a></h5>

@@ -22,4 +22,4 @@ Content-Type: application/json
     "Address": "Japan"
 }
 ###
-DELETE  http://localhost:3000/api/customer/63b50dc654b67c2fb7ee3ba6 HTTP/1.1
+DELETE  http://localhost:3000/api/customer/63db6eb4d99f4aaa7546fec1 HTTP/1.1

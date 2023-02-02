@@ -2,12 +2,12 @@ const mongoose = require('mongoose')
 
 const CustomerSchema = mongoose.Schema(
     {
-        CustomerId: Number,
-        FullName:   String,
-        Address:    String
+        Useremail: String,
+        FullName:  String,
+        Password:  String
     },
     {
         versionKey: false
     }
 )
-module.exports = mongoose.model('customer',CustomerSchema)
+module.exports = mongoose.model('User',CustomerSchema)
