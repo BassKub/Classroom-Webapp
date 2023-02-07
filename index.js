@@ -26,8 +26,8 @@ app.use(express.static(__dirname));
 
 app.use(cookieParser());
 
-const username = "6410301044@cdti.ac.th"
-const password = "16559"
+
+
 function isValidEmail(email) {
     const pattern = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     return pattern.test(email);
@@ -45,16 +45,19 @@ app.get('/', (req, res) =>{
 });
 
 app.post('/user', (req, res) => {
+    const username = "6410301044@cdti.ac.th"
+    const password = "16559"
     if(req.body.username == username && req.body.password == password) {
         session=req.session;
-        session.userid = req.body.Username;
+        session.userid = req.body.username;
         console.log(req.session)
         res.sendFile(__dirname + '/view/Home/Home.html');
     }
     else {
-
+        console.log("Error")
     }
 })
+
 app.post('/signupuser', (req, res) => {
     const email = req.body.username
     if(isValidEmail(email) && req.body.password != "" && req.body.fullname != "") {
@@ -75,10 +78,11 @@ app.post('/signupuser', (req, res) => {
         }
     }
     else {
-        
+        console.log("Error")
     }
 })
-app.listen(process.env.PORT, () => console.log(`Server listening on ${PORT}`));
+
+app.listen(PORT, () => console.log(`Server listening on ${PORT}`));
 
 mongoose.set('strictQuery', false);
 mongoose.connect(dbConfig.url)
@@ -93,6 +97,4 @@ mongoose.connect(dbConfig.url)
     app.use(cors())
     require('./routes/customer.route.js')(app);
 
-    const server = app.listen(process.env.PORT || 3000, () => {
-        console.log('Run')
-    })
+    
