@@ -27,10 +27,10 @@ exports.create = (req, res) =>{
 }
 
 exports.findById = (req, res) => {
-    customer.findById(req.params.Useremail).then(data =>{
+    customer.findById(req.params.Userid).then(data =>{
         if(!data){
             return res.status(404).json({
-                msg: "ไท่พบ Record รหัส : " + req.params.Useremail
+                msg: "ไท่พบ Record รหัส : " + req.params.Userid
             })
         }
         res.json(data)

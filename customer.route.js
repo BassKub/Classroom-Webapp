@@ -75,9 +75,25 @@ module.exports = (app) => {
             console.log("Error")
         }
     })
+    app.post('/edit', async(req,res) => {
+        const userId = req.session.userId; 
+        const name = req.body.name;
+        const email = req.body.email;
+        const password = req.body.password;
+
+    
+        db.collection('users').updateOne(
+            { _id: ObjectID(userId) },
+            { $set: { name: name, email: email, password: password } },
+            (err, result) => {
+                if (err) throw err;
+                res.redirect('/profile');
+            }
+        );
+    })
 
     app.get('/api/customer/:customerId', customer.findById)
-    app.put('/api/customer/:customerId', customer.update)
+    
     app.delete('/api/customer/:customerId', customer.delete)
 
     app.get('/logout', (req,res) =>{
