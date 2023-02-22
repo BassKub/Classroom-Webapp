@@ -48,7 +48,7 @@ module.exports = (app) => {
                 res.sendFile(__dirname + '/view/Home/Home.html');
             }
             else {
-            console.log("Error")
+            res.send('<script>alert("Invalid password!!!"); window.location.href="/";</script>');
             }
         }
         catch{
@@ -57,40 +57,46 @@ module.exports = (app) => {
         
     })
 
-    app.post('/signup',async (req, res) => {
-        const email = req.body.username
-        if(isValidEmail(email) && req.body.password != "" && req.body.fullname != "") {
-            let data = 
-                {
-                Useremail: req.body.username,
-                FullName:  req.body.fullname,
-                Password:  req.body.password
-                }
-            
-            await collection.insertMany([data])
-            res.sendFile(__dirname + '/view/Login/Login.html');    
-        
-        }
-        else {
-            console.log("Error")
-        }
-    })
-    app.post('/edit', async(req,res) => {
-        const userId = req.session.userId; 
-        const name = req.body.name;
-        const email = req.body.email;
-        const password = req.body.password;
+    app.post('/signup', async (req, res) => {
+    const email = req.body.username;
+    const check = await collection.findOne({ Useremail: email });
+    
+    if (check) {
+        console.log("Email already exists");
+        res.send('<script>alert("Email already exists!!!"); window.location.href="/view/Sign up/Signup.html";</script>');
+        return;
+    }
+
+    if (isValidEmail(email) && req.body.password != "" && req.body.fullname != "") {
+        const data = {
+            Useremail: email,
+            FullName: req.body.fullname,
+            Password: req.body.password
+        };
+
+        await collection.insertMany([data]);
+        res.sendFile(__dirname + '/view/Login/Login.html');
+    } else {
+        console.log("Error");
+    }
+    });
+
+    // app.post('/edit', async(req,res) => {
+    //     const userId = req.session.userId; 
+    //     const name = req.body.name;
+    //     const email = req.body.email;
+    //     const password = req.body.password;
 
     
-        db.collection('users').updateOne(
-            { _id: ObjectID(userId) },
-            { $set: { name: name, email: email, password: password } },
-            (err, result) => {
-                if (err) throw err;
-                res.redirect('/profile');
-            }
-        );
-    })
+    //     db.collection('users').updateOne(
+    //         { _id: ObjectID(userId) },
+    //         { $set: { name: name, email: email, password: password } },
+    //         (err, result) => {
+    //             if (err) throw err;
+    //             res.redirect('/profile');
+    //         }
+    //     );
+    // })
 
     app.get('/api/customer/:customerId', customer.findById)
     
