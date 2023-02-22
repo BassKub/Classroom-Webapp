@@ -30,7 +30,7 @@ input[type="text"] {
     width: 100%;
     padding: 10px 0px 10px 0px;
     font-size: 18px;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     border-radius: 5px;
     border: none;
     box-shadow: 0 0 5px #000;
@@ -43,6 +43,7 @@ button[type="submit"] {
     padding: 10px;
     background-color: #FD4556;
     border: none;
+    margin-top: 20px;
     border-radius: 5px;
     font-size: 18px;
     font-family: 'Marmelad';

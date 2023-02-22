@@ -2,11 +2,14 @@ const mongoose = require('mongoose')
 
 const classroomSchema = mongoose.Schema(
     {
-        classId: Number,
-        ClassName:   String,
+        classId: String,
+        ClassName: String,
+        Description: String,
+        student : Array,
     },
     {
         versionKey: false
     }
 )
-module.exports = mongoose.model('classroom',classroomSchema)
+const classes = new mongoose.model('classroom',classroomSchema)
+module.exports = classes

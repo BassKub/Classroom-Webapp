@@ -4,6 +4,7 @@ module.exports = (app) => {
     const express = require('express');
     const cookieParser = require('cookie-parser');
     const collection = require('./models/customer.js')
+    const classes = require('./models/classroom.js');
 
     const oneday = 1000 * 60 * 60 * 24;
     app.use(sessions({
@@ -26,6 +27,20 @@ module.exports = (app) => {
         const pattern = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
         return pattern.test(email);
     }
+
+    function generateClassCode() {
+        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        let code = '';
+      
+        for (let i = 0; i < 6; i++) {
+          code += characters.charAt(Math.floor(Math.random() * characters.length));
+        }
+      
+        return code;
+      }
+      
+      const classCode = generateClassCode();
+      
 
     var session;
 
@@ -60,7 +75,7 @@ module.exports = (app) => {
     app.post('/signup', async (req, res) => {
     const email = req.body.username;
     const check = await collection.findOne({ Useremail: email });
-    
+    // check email that user will use is already registered
     if (check) {
         console.log("Email already exists");
         res.send('<script>alert("Email already exists!!!"); window.location.href="/view/Sign up/Signup.html";</script>');
@@ -80,6 +95,51 @@ module.exports = (app) => {
         console.log("Error");
     }
     });
+
+    app.post('/classroom', async (req, res) => {
+        const name = req.body.className;
+        const check = await classes.findOne({ ClassName: name });
+        // check classroom name that user will use is already registered
+        if (check) {
+            console.log("classroom already exists!!!"); 
+            res.send('<script>alert("classroom already exists!!!"); window.location.href="/view/Create Classroom/Cc.html";</script>');
+            return;
+        }
+        //check that input no empty
+        if ( req.body.classname != "" && req.body.classDescription != "" ) {
+            const data = {
+                classId: classCode,
+                ClassName: name,
+                Description: req.body.classDescription
+            };
+
+            await classes.insertMany([data]);
+            res.sendFile(__dirname + '/view/Home/Home.html');
+        } else {
+            console.log("Error");
+        }
+    });
+
+    app.post('/joinclassroom', async (req, res) => {
+        const classID = req.body.classId;
+        const user = req.body.username;
+      
+        try {
+          // Find the classroom with the given ID
+          const classroom = await classes.findOne({ classId: req.body.classId });
+      
+          if (classroom) {
+            // Update the classroom's member list with the user's email
+            await classes.updateOne({ classId: classID }, { $addToSet: { student: user} });
+            res.send('<script>alert("Join Complete!!!"); window.location.href="/view/Home/Home.html";</script>');
+          } else {
+            res.status(404).send('Classroom not found');
+          }
+        } catch (error) {
+          console.error(error);
+          res.status(500).send('Server error');
+        }
+      });
 
     // app.post('/edit', async(req,res) => {
     //     const userId = req.session.userId; 
