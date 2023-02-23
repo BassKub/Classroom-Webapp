@@ -37,16 +37,14 @@ module.exports = (app) => {
         }
       
         return code;
-      }
-      
-      const classCode = generateClassCode();
+    }
       
 
     var session;
-
+    
     app.get('/', (req, res) =>{
         session = req.session;
-        if(session.Useremail){
+        if(session.User){
             res.sendFile(__dirname + '/view/Home/Home.html')
         }else
             res.sendFile(__dirname + '/view/Login/Login.html')
@@ -58,12 +56,12 @@ module.exports = (app) => {
 
             if(check.Password===req.body.password){
                 session = req.session;
-                session.Useremail = req.body.username;
+                session.User = check.FullName;
                 console.log(req.session)
                 res.sendFile(__dirname + '/view/Home/Home.html');
             }
             else {
-            res.send('<script>alert("Invalid password!!!"); window.location.href="/";</script>');
+                res.send('<script>alert("Invalid password!!!"); window.location.href="/";</script>');
             }
         }
         catch{
@@ -99,6 +97,8 @@ module.exports = (app) => {
     app.post('/classroom', async (req, res) => {
         const name = req.body.className;
         const check = await classes.findOne({ ClassName: name });
+        const classCode = generateClassCode();
+        const user = req.session.User;
         // check classroom name that user will use is already registered
         if (check) {
             console.log("classroom already exists!!!"); 
@@ -110,6 +110,7 @@ module.exports = (app) => {
             const data = {
                 classId: classCode,
                 ClassName: name,
+                Host: user,
                 Description: req.body.classDescription
             };
 
@@ -122,7 +123,7 @@ module.exports = (app) => {
 
     app.post('/joinclassroom', async (req, res) => {
         const classID = req.body.classId;
-        const user = req.body.username;
+        const user = req.session.User;
       
         try {
           // Find the classroom with the given ID
@@ -133,34 +134,13 @@ module.exports = (app) => {
             await classes.updateOne({ classId: classID }, { $addToSet: { student: user} });
             res.send('<script>alert("Join Complete!!!"); window.location.href="/view/Home/Home.html";</script>');
           } else {
-            res.status(404).send('Classroom not found');
+            res.send('<script>alert("Class Not Found!!!"); window.location.href="/view/Join Classroom/Jc.html";</script>');
           }
         } catch (error) {
           console.error(error);
           res.status(500).send('Server error');
         }
-      });
-
-    // app.post('/edit', async(req,res) => {
-    //     const userId = req.session.userId; 
-    //     const name = req.body.name;
-    //     const email = req.body.email;
-    //     const password = req.body.password;
-
-    
-    //     db.collection('users').updateOne(
-    //         { _id: ObjectID(userId) },
-    //         { $set: { name: name, email: email, password: password } },
-    //         (err, result) => {
-    //             if (err) throw err;
-    //             res.redirect('/profile');
-    //         }
-    //     );
-    // })
-
-    app.get('/api/customer/:customerId', customer.findById)
-    
-    app.delete('/api/customer/:customerId', customer.delete)
+    });
 
     app.get('/logout', (req,res) =>{
         req.session.destroy();
