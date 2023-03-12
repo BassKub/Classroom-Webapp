@@ -1,5 +1,4 @@
 module.exports = (app) => {
-    const customer = require("./Controllers/customer.controller.js");
     const sessions = require('express-session');
     const express = require('express');
     const cookieParser = require('cookie-parser');
