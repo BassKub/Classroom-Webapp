@@ -22,6 +22,6 @@ mongoose.connect(dbConfig.url)
     })
 
     app.use(cors())
-    require('./customer.route.js')(app);
+    require('./route.js')(app);
 
     

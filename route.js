@@ -8,7 +8,7 @@ module.exports = (app) => {
 
     const oneday = 1000 * 60 * 60 * 24;
     app.use(sessions({
-        secret: 'keyboard cat',
+        secret: 'Zero Two the best',
         cookie: { maxAge: oneday },
         saveUninitialized: true,
         resave: false
@@ -65,33 +65,33 @@ module.exports = (app) => {
             }
         }
         catch{
-            res.send('Error')
+            res.send('<script>alert("Email not exists!!!"); window.location.href="/";</script>');
         }
         
     })
 
     app.post('/signup', async (req, res) => {
-    const email = req.body.username;
-    const check = await collection.findOne({ Useremail: email });
-    // check email that user will use is already registered
-    if (check) {
-        console.log("Email already exists");
-        res.send('<script>alert("Email already exists!!!"); window.location.href="/view/Sign up/Signup.html";</script>');
-        return;
-    }
+        const email = req.body.username;
+        const check = await collection.findOne({ Useremail: email });
+        // check email that user will use is already registered
+        if (check) {
+            console.log("Email already exists");
+            res.send('<script>alert("Email already exists!!!"); window.location.href="/view/Sign up/Signup.html";</script>');
+            return;
+        }
 
-    if (isValidEmail(email) && req.body.password != "" && req.body.fullname != "") {
-        const data = {
-            Useremail: email,
-            FullName: req.body.fullname,
-            Password: req.body.password
-        };
+        if (isValidEmail(email) && req.body.password != "" && req.body.fullname != "") {
+            const data = {
+                Useremail: email,
+                FullName: req.body.fullname,
+                Password: req.body.password
+            };
 
-        await collection.insertMany([data]);
-        res.sendFile(__dirname + '/view/Login/Login.html');
-    } else {
-        console.log("Error");
-    }
+            await collection.insertMany([data]);
+            res.sendFile(__dirname + '/view/Login/Login.html');
+        } else {
+            console.log("Error");
+        }
     });
 
     app.post('/classroom', async (req, res) => {
@@ -147,4 +147,7 @@ module.exports = (app) => {
         res.redirect('/');
     });
 
+    app.get('*', (req, res) =>{
+        res.sendFile(__dirname + '/view/Error/e.html');
+    });
 }
